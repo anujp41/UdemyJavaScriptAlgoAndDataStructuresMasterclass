@@ -43,6 +43,14 @@ class BST {
     currNode = currNode[direction];
     return this.insertRecur(val, currNode);
   }
+
+  //Recursive find
+  find(val, currNode = this.root) {
+    if (currNode === null) return false;
+    if (currNode.val === val) return true;
+    let direction = val < currNode.val ? 'left' : 'right';
+    return this.find(val, currNode[direction]);
+  }
 }
 
 const tree = new BST();
@@ -58,7 +66,7 @@ tree.insertRecur(32);
 tree.insertRecur(72);
 tree.insertRecur(99);
 tree.insertRecur(68);
-tree.insertRecur(65);
 tree.insertRecur(71);
 
-console.log(util.inspect(tree, { showHidden: false, depth: null }));
+// console.log(util.inspect(tree, { showHidden: false, depth: null }));
+console.log(tree.find(921));
