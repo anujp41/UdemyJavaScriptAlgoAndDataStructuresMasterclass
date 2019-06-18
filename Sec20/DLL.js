@@ -50,6 +50,24 @@ class DoublyLinkedList {
     newNode.next = this.head;
     this.head = newNode;
   }
+  remove(val) {
+    if (this.head.val === val) {
+      this.head = this.head.next;
+      this.head.previous = null;
+      return;
+    }
+    if (this.tail.val === val) {
+      this.tail = this.tail.previous;
+      this.tail.next = null;
+      return;
+    }
+    let currNode = this.head;
+    while (currNode.next.val !== val) {
+      currNode = currNode.next;
+    }
+    currNode.next = currNode.next.next;
+    currNode.next.previous = currNode;
+  }
 }
 
 const ddl = new DoublyLinkedList();
@@ -58,4 +76,8 @@ ddl.addToLast(1);
 ddl.addToLast(25);
 ddl.addToLast(15);
 ddl.addToFirst(5);
+// ddl.remove(5);
+console.log(util.inspect(ddl, { showHidden: false, depth: null }));
+console.log('______________________');
+ddl.remove(1);
 console.log(util.inspect(ddl, { showHidden: false, depth: null }));
