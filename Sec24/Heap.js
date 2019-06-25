@@ -13,17 +13,17 @@ class MaxBinaryHeap {
   insert(val) {
     if (val === undefined) return;
     this.heap.push(val);
-    let checkIfMin = false;
     let currIndex = this.heap.length - 1;
-    while (!checkIfMin) {
-      const parentIdx = Math.floor((currIndex - 1) / 2);
-      if (this.heap[parentIdx] < this.heap[currIndex]) {
-        this.switch(parentIdx, currIndex);
-      } else {
-        checkIfMin = true;
-      }
+    let parentIdx = this.getParentIdx(currIndex);
+    while (this.heap[parentIdx] < this.heap[currIndex]) {
+      this.switch(parentIdx, currIndex);
       currIndex = parentIdx;
+      parentIdx = this.getParentIdx(currIndex);
     }
+  }
+
+  getParentIdx(currIdx) {
+    return Math.floor((currIdx - 1) / 2);
   }
 
   getChildren(idx) {
@@ -38,9 +38,9 @@ class MaxBinaryHeap {
 
 const myMaxHeap = new MaxBinaryHeap();
 const getRand = () => Math.floor(Math.random() * 100);
-for (let i = 1; i <= 31; i++) {
+for (let i = 1; i <= 20; i++) {
   myMaxHeap.insert(getRand());
 }
 console.log(myMaxHeap);
-console.log(myMaxHeap.getChildren(5));
-console.log(myMaxHeap.getChildren(17));
+// console.log(myMaxHeap.getChildren(5));
+// console.log(myMaxHeap.getChildren(17));
