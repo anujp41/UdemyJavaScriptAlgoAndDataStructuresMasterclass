@@ -50,6 +50,7 @@ class DoublyLinkedList {
     newNode.next = this.head;
     this.head = newNode;
   }
+
   remove(val) {
     if (this.head.val === val) {
       this.head = this.head.next;
