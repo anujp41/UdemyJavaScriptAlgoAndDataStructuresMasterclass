@@ -64,3 +64,12 @@ class HashTable {
     return this._fetch(keyMapIdx).find(key);
   }
 }
+
+const myHash = new HashTable(2);
+const dataToStore = [['shower', 2], ['coffee', 1], ['feed cat', 3]];
+dataToStore.forEach(item => myHash.set(item[0], item[1]));
+
+myHash.keyMap.forEach(item => {
+  console.log(item);
+  console.log('~~~~~~~~~~~~~~~~~~~~~~');
+});
