@@ -58,7 +58,25 @@ class Graph {
     delete this.adjacencyList[vertex];
   }
 
-  DFS(start) {
+  //iterative solution to depth first
+  DFSIterative(start) {
+    const result = [start];
+    const visited = { [start]: true };
+    const stack = [...this.adjacencyList[start]];
+    while (stack.length) {
+      const currItem = stack[0];
+      if (!visited[currItem]) {
+        result.push(currItem);
+        visited[currItem] = true;
+        stack.push(...this.adjacencyList[currItem]);
+      }
+      stack.shift();
+    }
+    return result;
+  }
+
+  //recursive solution to depth first
+  DFSRecursive(start) {
     const result = [];
     const visited = {};
     // HELPER FUNCTION WRITTEN WITH CALL AND BIND METHODS
@@ -101,6 +119,7 @@ g.addVertex('C');
 g.addVertex('D');
 g.addVertex('E');
 g.addVertex('F');
+g.addVertex('Z');
 g.addEdge('A', 'B');
 g.addEdge('A', 'C');
 g.addEdge('B', 'D');
@@ -108,4 +127,6 @@ g.addEdge('C', 'E');
 g.addEdge('D', 'E');
 g.addEdge('D', 'F');
 g.addEdge('E', 'F');
-console.log(g.DFS('A'));
+console.log(g.DFSRecursive('A'));
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log(g.DFSIterative('A'));
