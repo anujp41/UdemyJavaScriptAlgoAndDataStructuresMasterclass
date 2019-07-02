@@ -5,6 +5,7 @@ class Graph {
 
   addVertex(vertex) {
     if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+    else console.log('Vertex already in graph!');
   }
 
   addEdge(vertex1, vertex2) {
@@ -37,6 +38,7 @@ class Graph {
     return this.adjacencyList.hasOwnProperty(vertex);
   }
 
+  //check if there is relation between two vertices; also check edges in between; return true if yes, false otherwise
   checkIfRelated(v1, v2) {
     let edgeArr = [...this.adjacencyList[v1]];
     let checked = [];
@@ -55,14 +57,55 @@ class Graph {
     this.adjacencyList[vertex].forEach(v => this.removeEdge(v, vertex));
     delete this.adjacencyList[vertex];
   }
+
+  DFS(start) {
+    const result = [];
+    const visited = {};
+    // HELPER FUNCTION WRITTEN WITH CALL AND BIND METHODS
+    /*
+    function _DFS(vertex) {
+      if (!vertex) return;
+      result.push(vertex);
+      visited[vertex] = true;
+      this.adjacencyList[vertex].forEach(
+        function(v) {
+          if (!visited[v]) {
+            _DFS.call(this, v);
+          }
+        }.bind(this)
+      );
+    }
+    _DFS.call(this, start);
+    */
+
+    //SAME HELPER FUNCTION WRITTEN WITH ES6 FUNCTIONS TO INHERIT SCOPE
+
+    const _DFS = vertex => {
+      if (!vertex) return;
+      result.push(vertex);
+      visited[vertex] = true;
+      this.adjacencyList[vertex].forEach(v => {
+        if (!visited[v]) _DFS(v);
+      });
+    };
+    _DFS(start);
+
+    return result;
+  }
 }
 
 const g = new Graph();
-g.addVertex('Dallas');
-g.addVertex('Tokyo');
-g.addVertex('Aspen');
-g.addEdge('Tokyo', 'Dallas');
-g.addEdge('Tokyo', 'Aspen');
-console.log(g);
-g.removeVertex('Aspen');
-console.log(g);
+g.addVertex('A');
+g.addVertex('B');
+g.addVertex('C');
+g.addVertex('D');
+g.addVertex('E');
+g.addVertex('F');
+g.addEdge('A', 'B');
+g.addEdge('A', 'C');
+g.addEdge('B', 'D');
+g.addEdge('C', 'E');
+g.addEdge('D', 'E');
+g.addEdge('D', 'F');
+g.addEdge('E', 'F');
+console.log(g.DFS('A'));
