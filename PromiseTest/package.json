@@ -10,6 +10,6 @@
   "author": "Anuj Pant <anuj.pant41@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.21.1"
   }
 }
